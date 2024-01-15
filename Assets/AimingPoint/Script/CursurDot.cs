@@ -13,6 +13,12 @@ public class CursurDot : MonoBehaviour, ICursur
     [SerializeField]
     RectTransform innerLine;
 
+    [SerializeField]
+    float MinValue;
+
+    [SerializeField]
+    float MaxValue;
+
     public void EnableCursur(bool isEnable)
     {
         this.gameObject.SetActive(isEnable);
@@ -58,6 +64,15 @@ public class CursurDot : MonoBehaviour, ICursur
         outLine.sizeDelta += new Vector2(degree, degree);
     }
 
+    public float GetMinValue()
+    {
+        return MinValue;
+    }
+
+    public float GetMaxValue()
+    {
+        return MaxValue;
+    }
    
 }
 
