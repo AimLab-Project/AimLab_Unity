@@ -5,13 +5,14 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
 
-    Coroutine game; // 각 게임 코루틴 저장 
+    public IFPSGame[] fPSGames;
 
-    public IFPSGame[] fPSGames; 
+    IFPSGame curGame;
 
-    public void SetGame(Coroutine game)
+
+    public void SetGame(IFPSGame game)
     {
-        this.game = game;
+        curGame = game;
     }
 
     public void MoveScene(string name)
@@ -26,15 +27,38 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Application.isEditor)
         {
-            WebGLSceneManager.Instance.LoadScene("ForTest");
-        }
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                WebGLSceneManager.Instance.LoadScene("ForTest");
+            }
 
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            WebGLSceneManager.Instance.LoadScene("Main");
-        }
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                WebGLSceneManager.Instance.LoadScene("Main");
+            }
 
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                StartGame();
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+
+            }
+        }
+    }
+
+    private void StartGame()
+    {
+        if (curGame != null)
+            curGame.StartGame();
+    }
+
+    private void StopGame()
+    {
+        if (curGame != null)
+            curGame.StartGame();
     }
 }
