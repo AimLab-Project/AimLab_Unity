@@ -17,6 +17,13 @@ public class WebGLSceneManager : Singleton<WebGLSceneManager>
         await LoadSceneAsync();
     }
 
+    public async UniTask LoadSceneCallback(string sceneName, Action doComplete)
+    {
+        SceneManager.LoadScene("LoadingScene");
+        m_NextScene = sceneName;
+        await LoadSceneAsync();
+    }
+
     private async UniTask LoadSceneAsync()
     {
         await UniTask.Yield();

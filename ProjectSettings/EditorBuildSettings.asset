@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/AimSetting.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
     path: Assets/Scenes/LoadingScene.unity
     guid: 8f1a56967f721894c95e067b29b8fddf
+  - enabled: 1
+    path: Assets/Scenes/ShootingGame.unity
+    guid: fa4631b7ed2fc9646b2e78a6c5d51dee
+  - enabled: 0
+    path: Assets/Scenes/AimSetting.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

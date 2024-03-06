@@ -1,44 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Debug = Project.Utils.Debug;
 public class SpawnManager : MonoBehaviour
 {
     public GameObject[] tempObjs;
-    List<GameObject> objs;
     Transform centerPos;
 
-    [Tooltip("RandomRange")]
+    [Header("RandomRange")]
     public int[] rangeX;
     public int[] rangeZ;
 
-    void Start()
-    {
-        Init();
-        StartCoroutine(test(1f));
-    }
+    GameObject spawnMother;
 
     void Init()
     {
-        objs = new List<GameObject>();
         centerPos = this.transform;
+
+        if (!spawnMother)
+        {
+            spawnMother = Instantiate(new GameObject());
+            spawnMother.name = "SpawnMother";
+        }
     }
 
-    IEnumerator test(float delay)
+    public IEnumerator CoSpawn(float delay)
     {
-        while (true)
+        Init();
+
+        WaitForSeconds waitTime = new WaitForSeconds(delay);
+
+        while (ShootingGameManager.IsGame)
         {
-            yield return new WaitForSeconds(delay);
+            yield return waitTime;
             Spawn();
         }
     }
 
-
-
     void Spawn()
     {
         int spawnNum = 0; 
-        if(tempObjs.Length > 1)
+        if(tempObjs.Length > 0)
         {
             spawnNum = Random.Range(0, tempObjs.Length - 1);
         }
@@ -51,10 +53,16 @@ public class SpawnManager : MonoBehaviour
         float posZ = Random.Range((centerPos.position.z - rangeZ[0]), (centerPos.position.z + rangeZ[1]));
 
         Vector3 spawnPos = new Vector3(posX, 0, posZ);
-
-        GameObject instance = Instantiate(tempObjs[spawnNum], spawnPos, Quaternion.identity);
-        objs.Add(instance);
+        Instantiate(tempObjs[spawnNum], spawnPos, Quaternion.identity, spawnMother.transform);
     }
+
+
+    public void DestroySpawnObj()
+    {
+        GameObject.Destroy(spawnMother);
+    }
+
+
     /**
     void OnDrawGizmosSelected()
     {
