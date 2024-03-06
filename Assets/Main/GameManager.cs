@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Debug = Project.Utils.Debug;
+
+[RequireComponent(typeof(WebGLSceneManager))]
 public class GameManager : Singleton<GameManager>
 {
 
@@ -15,6 +17,7 @@ public class GameManager : Singleton<GameManager>
         curGame = game;
     }
 
+#pragma warning disable CS4014
     public void MoveScene(string name)
     {
         WebGLSceneManager.Instance.LoadSceneCallback(name, () => {
@@ -22,9 +25,9 @@ public class GameManager : Singleton<GameManager>
         });
     }
 
-    private void Awake()
+    protected override void InternalAwake()
     {
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(this.gameObject);
     }
 
     private void Update()
@@ -35,10 +38,9 @@ public class GameManager : Singleton<GameManager>
             {
                 MoveScene("ShootingGame");
             }
-
             if (Input.GetKeyDown(KeyCode.L))
             {
-                WebGLSceneManager.Instance.LoadScene("Main");
+                MoveScene("Main");
             }
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -49,9 +51,8 @@ public class GameManager : Singleton<GameManager>
                 StopGame();
             }
         }
-
-       
     }
+
     private void InitGame()
     {
         //find IFPSGame Interface

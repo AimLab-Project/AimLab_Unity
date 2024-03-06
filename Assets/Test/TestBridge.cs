@@ -20,7 +20,7 @@ public class TestBridge : MonoBehaviour
     CameraMove cameraMove;
 
 
-    
+#pragma warning disable CS4014
     public void MoveMainScene()
     {
         WebGLSceneManager.Instance.LoadScene("Main");

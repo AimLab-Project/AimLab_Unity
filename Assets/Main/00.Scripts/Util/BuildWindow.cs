@@ -225,8 +225,6 @@ namespace Project.Utils
             }
 
             //ChangePushPlugin(ver.Equals("dev") ? "stg" : ver);
-
-            BuildOptions opt = BuildOptions.None;
             char sep = Path.DirectorySeparatorChar;
             string BUILD_TARGET_PATH = Path.GetFullPath(".") + sep + GetBuildName(ver);
 

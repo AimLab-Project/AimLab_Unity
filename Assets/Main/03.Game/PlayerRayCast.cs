@@ -24,7 +24,7 @@ public class PlayerRayCast : MonoBehaviour
     {
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hitInfo;
-        if (Physics.Raycast(ray, out hitInfo, 1000))
+        if (Physics.Raycast(ray, out hitInfo, 10000))
         {
             //닿았다 (Raycast가 true일때)
             if (hitInfo.transform.gameObject.tag == "Object")

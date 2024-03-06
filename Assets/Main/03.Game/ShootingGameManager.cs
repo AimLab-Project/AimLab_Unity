@@ -21,7 +21,8 @@ public class ShootingGameManager : MonoBehaviour, IFPSGame
     }
     void Init()
     {
-        spawnManager = FindObjectOfType<SpawnManager>();
+        if(spawnManager == null)
+            spawnManager = FindObjectOfType<SpawnManager>();
     }
 
     public bool CheckType(GAME_TYPE type)
