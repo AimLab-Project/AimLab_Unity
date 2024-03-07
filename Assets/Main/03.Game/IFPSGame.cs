@@ -12,6 +12,8 @@ public interface IFPSGame
     
     public bool CheckType(GAME_TYPE type);
 
+    public void SaveHitInfo(IFPSObject hitobj);
+
 }
 
 public enum GAME_TYPE

@@ -90,6 +90,13 @@ public class GameManager : Singleton<GameManager>
             curGame.StopGame();
             curGame = null;
         }
-            
+    }
+
+    public IFPSGame GetCurGameManager()
+    {
+        if (curGame != null)
+            return curGame;
+
+        return null;
     }
 }

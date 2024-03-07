@@ -63,5 +63,13 @@ namespace Project.Utils
 
             string str = sb.ToString().TrimEnd(',');
         }
+
+        public static void DrawLine(Vector3 start, Vector3 end, Color color)
+        {
+            if (DebugMode)
+            {
+                Debug.DrawLine(start, end, color);
+            }
+        }
     }
 }

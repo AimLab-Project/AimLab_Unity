@@ -250,9 +250,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tempObjs:
-  - {fileID: 4068841934446580330, guid: ce5ce1c7192d36345b0aa0797450349d, type: 3}
+  - {fileID: 6453150056706337027, guid: 8b9aba47a3ff36d46883a120027cbe53, type: 3}
   rangeX: 1400000013000000
-  rangeZ: 0000000032000000
+  rangeY: 10
+  rangeZ: 000000001e000000
 --- !u!114 &160426178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,6 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7783c1eb74bd9ad4fa91570466374e62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletHolePrefab: {fileID: 1413967457479232106, guid: 1cc110d85eb2c584ba21ee5e117a88a5, type: 3}
 --- !u!1 &711258308
 GameObject:
   m_ObjectHideFlags: 0

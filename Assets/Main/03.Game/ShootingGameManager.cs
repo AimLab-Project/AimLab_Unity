@@ -55,4 +55,8 @@ public class ShootingGameManager : MonoBehaviour, IFPSGame
             gameCo = null;
         }
     }
+    public void SaveHitInfo(IFPSObject hitobj)
+    {
+      
+    }
 }
