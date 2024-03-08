@@ -15,6 +15,10 @@ public class ShootingGameManager : MonoBehaviour, IFPSGame
 
     Coroutine gameCo;
 
+    [Header("Shoot Redult")]
+    [SerializeField]
+    Transform resultShowPos;
+
     private void Start()
     {
         Init();
@@ -57,6 +61,11 @@ public class ShootingGameManager : MonoBehaviour, IFPSGame
     }
     public void SaveHitInfo(IFPSObject hitobj)
     {
-      
+        GameObject temp = hitobj.GetTargetObject();
+
+        temp.transform.parent = resultShowPos;
+        temp.transform.position = resultShowPos.position;
+        // hitobj.SetLookAt(Vector3.zero);
+        //temp.transform.rotation = Quaternion.Euler(0, 0f, 0);
     }
 }

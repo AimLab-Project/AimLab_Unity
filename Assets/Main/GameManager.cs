@@ -11,6 +11,8 @@ public class GameManager : Singleton<GameManager>
 
     IFPSGame curGame;
 
+    CameraMove player;
+
 
     public void SetGame(IFPSGame game)
     {
@@ -63,7 +65,11 @@ public class GameManager : Singleton<GameManager>
         {
             IFPSGame temp = component as IFPSGame;
             if (temp != null)
+            {
                 curGame = temp;
+                player = FindFirstObjectByType<CameraMove>();
+            }
+                
         }
 
         if (curGame == null)
@@ -98,5 +104,10 @@ public class GameManager : Singleton<GameManager>
             return curGame;
 
         return null;
+    }
+
+    public Transform GetPlayerPos()
+    {
+        return player.gameObject.transform;
     }
 }
