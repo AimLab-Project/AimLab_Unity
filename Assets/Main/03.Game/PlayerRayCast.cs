@@ -40,13 +40,13 @@ public class PlayerRayCast : MonoBehaviour
             {
                 //Todo : 게임 매니저 단으로 넘어가야함. 
                 IFPSObject hitObjInfo = hitInfo.transform.gameObject.GetComponent<IFPSObject>();
-                CreateBulletHole(hitInfo);
+                hitObjInfo.SetBulletHole(CreateBulletHole(hitInfo));
                 GameManager.Instance.GetCurGameManager().SaveHitInfo(hitObjInfo);
             }
             else if(hitInfo.transform.gameObject.tag == "ChildObject")
             {
                 IFPSObject hitObjInfo = hitInfo.transform.gameObject.GetComponentInParent<IFPSObject>();
-                CreateBulletHole(hitInfo);
+                hitObjInfo.SetBulletHole(CreateBulletHole(hitInfo));
                 GameManager.Instance.GetCurGameManager().SaveHitInfo(hitObjInfo);
             }
 
@@ -56,7 +56,7 @@ public class PlayerRayCast : MonoBehaviour
 
     }
 
-    void CreateBulletHole(RaycastHit hitInfo)
+    GameObject CreateBulletHole(RaycastHit hitInfo)
     {
         GameObject obj = Instantiate(bulletHolePrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal),hitInfo.transform.parent);
         Vector3 temp = obj.transform.localPosition;
@@ -66,6 +66,8 @@ public class PlayerRayCast : MonoBehaviour
         obj.transform.position += obj.transform.forward /1000;
         Debug.Log("obj.transform.position !" + obj.transform.position);
         //Changing the bullet hole's position a bit so it will fit better
+
+        return obj;
     }
 }
 

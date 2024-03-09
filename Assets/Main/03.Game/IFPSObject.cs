@@ -11,4 +11,8 @@ public interface IFPSObject
     public GameObject GetTargetObject();
 
     public void SetLookAt(Transform pos);
+
+    public GameObject GetBulletHole();
+
+    public void SetBulletHole(GameObject gameObject);
 }

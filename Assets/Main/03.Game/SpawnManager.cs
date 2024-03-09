@@ -14,6 +14,8 @@ public class SpawnManager : MonoBehaviour
 
     GameObject spawnMother;
 
+    bool doSpawn;
+
     void Init()
     {
         centerPos = this.transform;
@@ -33,8 +35,9 @@ public class SpawnManager : MonoBehaviour
 
         while (ShootingGameManager.IsGame)
         {
+            doSpawn = false;
             GameObject temp =  Spawn();
-            yield return new WaitUntil(() => temp == null );
+            yield return new WaitUntil(() => doSpawn);
             yield return waitTime;
         }
     }
@@ -62,11 +65,20 @@ public class SpawnManager : MonoBehaviour
     }
 
 
-    public void DestroySpawnObj()
+    public void DestroySpawnMotherObj()
     {
         GameObject.Destroy(spawnMother);
     }
+    
+    public Transform GetMotherObj()
+    {
+        return spawnMother.transform;
+    }
 
+    public void StartSpawn()
+    {
+        doSpawn = true;
+    }
 
     /**
     void OnDrawGizmosSelected()
