@@ -55,7 +55,7 @@ public class SpawnManager : MonoBehaviour
         }
 
         float posX = Random.Range((centerPos.position.x - rangeX[0]), (centerPos.position.x + rangeX[1]));
-        float posY = Random.Range(1f , rangeY);
+        float posY = Random.Range(3f , rangeY);
         float posZ = Random.Range((centerPos.position.z - rangeZ[0]), (centerPos.position.z + rangeZ[1]));
 
         Vector3 spawnPos = new Vector3(posX, posY, posZ);
@@ -80,7 +80,7 @@ public class SpawnManager : MonoBehaviour
         doSpawn = true;
     }
 
-    /**
+    
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
@@ -89,5 +89,5 @@ public class SpawnManager : MonoBehaviour
         Gizmos.DrawRay(this.transform.position, this.transform.localRotation * Vector3.forward * rangeZ[1]);
 
     }
-    **/
+    
 }

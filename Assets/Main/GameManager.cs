@@ -13,6 +13,10 @@ public class GameManager : Singleton<GameManager>
 
     CameraMove player;
 
+    float gameTime = 60f;
+    float curGameTime;
+
+    Coroutine gameRoutine;
 
     public void SetGame(IFPSGame game)
     {
@@ -68,6 +72,7 @@ public class GameManager : Singleton<GameManager>
             {
                 curGame = temp;
                 player = FindFirstObjectByType<CameraMove>();
+                curGameTime = 0f;
             }
                 
         }
@@ -78,9 +83,10 @@ public class GameManager : Singleton<GameManager>
 
     private void StartGame()
     {
-        if (curGame != null)
+        if (curGame != null && gameRoutine == null)
         { 
             curGame.StartGame();
+            gameRoutine = StartCoroutine(CoGameCountDown());
         }
         else
         {
@@ -94,7 +100,8 @@ public class GameManager : Singleton<GameManager>
         if (curGame != null)
         {
             curGame.StopGame();
-            curGame = null;
+           // curGame = null;
+            gameRoutine = null;
         }
     }
 
@@ -109,5 +116,17 @@ public class GameManager : Singleton<GameManager>
     public Transform GetPlayerPos()
     {
         return player.gameObject.transform;
+    }
+
+    IEnumerator CoGameCountDown()
+    {
+        WaitForSecondsRealtime time = new WaitForSecondsRealtime(0.01f);
+
+        while(curGameTime >= gameTime)
+        {
+            yield return time;
+            curGameTime += 0.01f;
+        }
+        StopGame();
     }
 }
