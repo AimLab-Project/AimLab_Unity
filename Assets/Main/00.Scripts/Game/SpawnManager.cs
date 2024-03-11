@@ -69,6 +69,18 @@ public class SpawnManager : MonoBehaviour
     {
         GameObject.Destroy(spawnMother);
     }
+
+    public void DestroySpawnChildObj()
+    {
+        GameObject[] children = spawnMother.GetComponentsInChildren<GameObject>();
+        if (children.Length > 0)
+        {
+            for(int i = 0; i < children.Length; i++)
+            {
+                Destroy(children[i]);
+            }
+        }
+    }
     
     public Transform GetMotherObj()
     {
@@ -89,5 +101,6 @@ public class SpawnManager : MonoBehaviour
         Gizmos.DrawRay(this.transform.position, this.transform.localRotation * Vector3.forward * rangeZ[1]);
 
     }
+
     
 }

@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tempObjs:
-  - {fileID: 6453150056706337027, guid: 8b9aba47a3ff36d46883a120027cbe53, type: 3}
+  - {fileID: 6453150056706337027, guid: 6d3db9e4067c76b42ad91ee69d0b9bb6, type: 3}
   rangeX: 0a0000000a000000
   rangeY: 10
   rangeZ: 000000001e000000
@@ -390,7 +390,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 30, y: 30}
-  m_SizeDelta: {x: 350, y: 350}
+  m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &280545780
 MonoBehaviour:
@@ -450,6 +450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletHolePrefab: {fileID: 1413967457479232106, guid: 1cc110d85eb2c584ba21ee5e117a88a5, type: 3}
+  hitEffect: {fileID: 5024009746357069194, guid: ec3f674830402cc45bce805cf6493db7, type: 3}
 --- !u!1001 &619156378
 PrefabInstance:
   m_ObjectHideFlags: 0

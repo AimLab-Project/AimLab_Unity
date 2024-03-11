@@ -21,6 +21,8 @@ public class PlayerRayCast : MonoBehaviour
     [SerializeField]
     GameObject bulletHolePrefab;
 
+    [SerializeField]
+    GameObject hitEffect;
 
     void Update()
     {
@@ -36,24 +38,30 @@ public class PlayerRayCast : MonoBehaviour
         RaycastHit hitInfo;
         if (Physics.Raycast(ray, out hitInfo, 10000))
         {
+            IFPSGame temp = GameManager.Instance.GetCurGameManager();
             if (hitInfo.transform.gameObject.tag == "Object")
             {
-                //Todo : 게임 매니저 단으로 넘어가야함. 
                 IFPSObject hitObjInfo = hitInfo.transform.gameObject.GetComponent<IFPSObject>();
                 hitObjInfo.SetBulletHole(CreateBulletHole(hitInfo));
-                GameManager.Instance.GetCurGameManager().SaveHitInfo(hitObjInfo);
+                CreateHitEffect(hitInfo);
+                temp.SaveHitInfo(hitObjInfo);
             }
             else if(hitInfo.transform.gameObject.tag == "ChildObject")
             {
                 IFPSObject hitObjInfo = hitInfo.transform.gameObject.GetComponentInParent<IFPSObject>();
                 hitObjInfo.SetBulletHole(CreateBulletHole(hitInfo));
-                GameManager.Instance.GetCurGameManager().SaveHitInfo(hitObjInfo);
+                CreateHitEffect(hitInfo);
+                temp.SaveHitInfo(hitObjInfo);
+            }
+            else
+            {
+                //check null hit!
+                temp.SaveHitInfo(null);
             }
 
             Debug.Log("hit!" + hitInfo.transform.gameObject.name);
             Debug.DrawLine(transform.position, hitInfo.point, Color.red);
         }
-
     }
 
     GameObject CreateBulletHole(RaycastHit hitInfo)
@@ -68,6 +76,12 @@ public class PlayerRayCast : MonoBehaviour
         //Changing the bullet hole's position a bit so it will fit better
 
         return obj;
+    }
+
+    void CreateHitEffect(RaycastHit hitInfo)
+    {        
+        //To Do (1002) : Add Object Pool
+        GameObject obj = Instantiate(hitEffect, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
     }
 }
 

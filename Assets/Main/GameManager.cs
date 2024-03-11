@@ -129,4 +129,11 @@ public class GameManager : Singleton<GameManager>
         }
         StopGame();
     }
+
+
+    private void OnGUI()
+    {
+        
+    }
+
 }

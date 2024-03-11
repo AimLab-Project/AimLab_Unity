@@ -70,18 +70,22 @@ public class ShootingGameManager : MonoBehaviour, IFPSGame
         // temp.transform.position = resultShowPos.position;
         //  temp.transform.localScale = new Vector3(-2f, -2f, -2f);
         // temp.transform.eulerAngles = Vector3.left;
+        if(hitobj.GetBulletHole() != null)
+        {
+            Vector3 localTempPos = hitobj.GetBulletHole().transform.localPosition;
+            hitobj.GetBulletHole().transform.parent = resultTarget.transform;
+            hitobj.GetBulletHole().transform.localPosition = localTempPos;
+            hitobj.GetBulletHole().transform.eulerAngles = Vector3.left;
 
-        Vector3 localTempPos = hitobj.GetBulletHole().transform.localPosition;
-        hitobj.GetBulletHole().transform.parent = resultTarget.transform;
-        hitobj.GetBulletHole().transform.localPosition = localTempPos;
-        hitobj.GetBulletHole().transform.eulerAngles = Vector3.left;
+            //To Do (1001) : Save the Bullet Hole Object and Checking System.
+            Destroy(hitobj.GetTargetObject());
+        }
+        else
+        {
+            spawnManager.DestroySpawnChildObj();
+        }
 
-        //To Do (1001) : Save the Bullet Hole Object and Checking System.
-
-        Destroy(hitobj.GetTargetObject());
-        //To Do (1002) : Create Object Pool
-
-
+        //To Do (1002) : Add Object Pool
         spawnManager.StartSpawn();
     }
 }
