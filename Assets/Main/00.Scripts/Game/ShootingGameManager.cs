@@ -23,6 +23,8 @@ public class ShootingGameManager : MonoBehaviour, IFPSGame
     [SerializeField]
     GameObject resultTarget;
 
+    ShowLog showLog;
+
     private void Start()
     {
         Init();
@@ -31,6 +33,9 @@ public class ShootingGameManager : MonoBehaviour, IFPSGame
     {
         if(spawnManager == null)
             spawnManager = FindObjectOfType<SpawnManager>();
+
+        if (showLog == null)
+            showLog = FindObjectOfType<ShowLog>();
     }
 
     public bool CheckType(GAME_TYPE type)
@@ -87,5 +92,6 @@ public class ShootingGameManager : MonoBehaviour, IFPSGame
 
         //To Do (1002) : Add Object Pool
         spawnManager.StartSpawn();
+        
     }
 }

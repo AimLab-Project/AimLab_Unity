@@ -18,6 +18,8 @@ public class GameManager : Singleton<GameManager>
 
     Coroutine gameRoutine;
 
+    ShowLog showLog;
+
     public void SetGame(IFPSGame game)
     {
         curGame = game;
@@ -79,6 +81,11 @@ public class GameManager : Singleton<GameManager>
 
         if (curGame == null)
             Debug.LogError("cur Game Empty");
+
+#if UNITY_EDITOR
+      showLog = this.gameObject.AddComponent<ShowLog>();
+#endif
+
     }
 
     private void StartGame()
@@ -91,7 +98,6 @@ public class GameManager : Singleton<GameManager>
         else
         {
             InitGame();
-            curGame.StartGame();
         }
     }
 
@@ -122,18 +128,18 @@ public class GameManager : Singleton<GameManager>
     {
         WaitForSecondsRealtime time = new WaitForSecondsRealtime(0.01f);
 
-        while(curGameTime >= gameTime)
+        while(curGameTime <= gameTime)
         {
             yield return time;
             curGameTime += 0.01f;
+            //Debug.Log("gameTime" + curGameTime);
         }
+        yield return null;
         StopGame();
     }
 
-
-    private void OnGUI()
+    public float GetCurTime()
     {
-        
+        return curGameTime;
     }
-
 }
