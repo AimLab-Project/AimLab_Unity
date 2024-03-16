@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Debug = Project.Utils.Debug;
 
-[RequireComponent(typeof(WebGLSceneManager))]
+[RequireComponent(typeof(WebGLSceneManager), typeof(GameDataManager))]
 public class GameManager : Singleton<GameManager>
 {
 
@@ -19,6 +19,9 @@ public class GameManager : Singleton<GameManager>
     Coroutine gameRoutine;
 
     ShowLog showLog;
+
+    GameDataManager gameDataManager;
+
 
     public void SetGame(IFPSGame game)
     {
@@ -36,6 +39,7 @@ public class GameManager : Singleton<GameManager>
     protected override void InternalAwake()
     {
         DontDestroyOnLoad(this.gameObject);
+        gameDataManager = GetComponent<GameDataManager>();
     }
 
     private void Update()
@@ -142,4 +146,19 @@ public class GameManager : Singleton<GameManager>
     {
         return curGameTime;
     }
+
+    public void SethitData(HitData hitData)
+    {
+        gameDataManager.gameData.hitDatas.Add(hitData);
+    }
+
+    public HitData GetHitData(int index)
+    {
+        if(index < gameDataManager.gameData.hitDatas.Count)
+        {
+            return gameDataManager.gameData.hitDatas[index];
+        }
+        return null;
+    }
+
 }

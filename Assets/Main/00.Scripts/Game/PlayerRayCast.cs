@@ -5,16 +5,17 @@ public enum HitType
     HEAD = 100,
     BODY = 101,
     FOOT = 102,
-    ONE = 1,
-    TWO = 2,
-    THREE = 3,
-    FOUR = 4,
-    FIVE = 5,
-    SIX = 6,
-    SEVEN = 7,
-    EIGHT = 8,
-    NINE = 9,
-    TEN = 10
+    ZERO = 200,
+    ONE = 201,
+    TWO = 202,
+    THREE = 203,
+    FOUR = 204,
+    FIVE = 205,
+    SIX = 206,
+    SEVEN = 207,
+    EIGHT = 208,
+    NINE = 209,
+    TEN = 210
 }
 
 public class PlayerRayCast : MonoBehaviour
@@ -63,36 +64,37 @@ public class PlayerRayCast : MonoBehaviour
                 temp.SaveHitInfo(hitObjInfo);
 
                 // ShowLog
-#if UNITY_EDITOR || Develop
-                ShowLog.targetVec = hitInfo.transform.position;
-                ShowLog.isHit = true;
-#endif
+
             }
             else if (hitInfo.transform.gameObject.tag == "ChildObject")
             {
-                IFPSObject hitObjInfo = hitInfo.transform.gameObject.GetComponentInParent<IFPSObject>();
+                Transform parent = hitInfo.transform.gameObject.transform.parent;
+                IFPSObject hitObjInfo = parent.GetComponent<IFPSObject>();
+
                 hitObjInfo.SetBulletHole(CreateBulletHole(hitInfo));
+                HitType hitType =  hitObjInfo.GetHitType(hitInfo.transform.gameObject);
                 CreateHitEffect(hitInfo);
                 temp.SaveHitInfo(hitObjInfo);
+                float distance = Vector3.Distance(this.gameObject.transform.parent.position, parent.localPosition);
 
-#if UNITY_EDITOR || Develop
-                ShowLog.targetVec = hitInfo.transform.position;
-                ShowLog.isHit = true;
-#endif
+                HitData hitdata = new HitData(hitType, new Vector2(0,0),hitInfo.transform.position,distance,GameManager.Instance.GetCurTime(), hitObjInfo.CheckTime());
+
+                GameManager.Instance.SethitData(hitdata);
             }
             else
             {
                 Debug.Log("hit!" + hitInfo.transform.gameObject.name);
+                HitData hitdata = new HitData(GameManager.Instance.GetCurTime(), new Vector2(0, 0));
             }
          
-
-          
             Debug.DrawLine(transform.position, hitInfo.point, Color.red);
         }
         else
         {
             ShowLog.isHit = false;
         }
+
+        //test mousePos 
         Vector3 point = camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
                   Input.mousePosition.y, -Camera.main.transform.position.z));
 

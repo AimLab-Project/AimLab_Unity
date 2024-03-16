@@ -17,14 +17,14 @@ public class ShowLog : MonoBehaviour
 
     //4-1. 반응 속도 
     public static float reactionSpeed;
-    //4-2.벡터 거리  
+    //4-2. 벡터 거리  
     public static float distance;
     //4-3. 타겟 명중 위치 
     public static Vector3 targetVec;
-    //4-4. 헤드샷 유무 
+    //4-4. Hit Type
     public static HitType hitType = HitType.NONE;
 
-    //5.타겟 못 맞췄을 시 데이터 
+    //5. 타겟 못 맞췄을 시 데이터 
 
 
     private void OnGUI()
@@ -40,10 +40,13 @@ public class ShowLog : MonoBehaviour
         if (isHit)
         {
             GUI.Label(new Rect(5, 90, Screen.width, 20), "----- [타겟 정보] -----", style);
-            GUI.Label(new Rect(5, 120, Screen.width, 20), "반응 속도  " + reactionSpeed, style);
+            GUI.Label(new Rect(5, 120, Screen.width, 20), "반응 속도  " + reactionSpeed.ToString("#.##"), style);
             GUI.Label(new Rect(5, 150, Screen.width, 20), "벡터 거리  " + distance, style);
-            GUI.Label(new Rect(5, 180, Screen.width, 20), "타겟 명중 위치   ( " + targetVec.x + "," + targetVec.y + ","+ targetVec.z + ")", style);
-            GUI.Label(new Rect(5, 210, Screen.width, 20), "Hit Type" + hitType, style);
+            GUI.Label(new Rect(5, 180, Screen.width, 20), "타겟 명중 위치   ( " + targetVec.x.ToString("#.##") + "," + targetVec.y.ToString("#.##") + ","+ targetVec.z.ToString("#.##") + ")", style);
+            GUI.Label(new Rect(5, 210, Screen.width, 20), "Hit Type : " + hitType, style);
         }
     }
 }
+ 
+
+

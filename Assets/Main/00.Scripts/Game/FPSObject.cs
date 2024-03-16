@@ -7,17 +7,35 @@ public class FPSObject : MonoBehaviour, IFPSObject
 {
     GameObject bulletHole;
 
+    float time;
+    bool isStop = true ;
+
+
+
     void Start()
     {
         //this.gameObject.transform.eulerAngles = new Vector3(0,180,0);
         this.gameObject.transform.LookAt(GameManager.Instance.GetPlayerPos());
         transform.Rotate(Vector3.up, 180.0f);
+   
+        StartCoroutine(CoCheckTime());
     }
 
-
-    public int CheckTime()
+    public float CheckTime()
     {
-        return 0;
+        isStop = false;
+        return time;
+    }
+
+    IEnumerator CoCheckTime()
+    {
+        WaitForSeconds wTime = new WaitForSeconds(0.01f);
+        while (isStop)
+        {
+            yield return wTime;
+            time += 0.01f;
+        }
+        yield return null;
     }
 
     public float GetDistancePlayer()
@@ -47,7 +65,16 @@ public class FPSObject : MonoBehaviour, IFPSObject
     {
         if (!bulletHole)
             bulletHole = gameObject;
+        else 
+            Debug.LogError("already set bulletHole" + bulletHole.name + "/" + gameObject.name);
+    }
 
-        Debug.LogError("already set bulletHole" + bulletHole.name + "/" + gameObject.name);
+    public HitType GetHitType(GameObject gameObject)
+    {
+        FPSChildObject childTemp = gameObject.GetComponent<FPSChildObject>();
+        if (childTemp)
+            return childTemp.GetHitType();
+        else
+            return HitType.NONE;
     }
 }
