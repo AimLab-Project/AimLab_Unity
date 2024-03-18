@@ -30,9 +30,8 @@ public class HitData
     //2. ∏¬√„ ¿Øπ´ 
     public bool isHit;
 
-    //3. »≠∏È x,y ¡¬«• 
-    public double mousePointX;
-    public double mousePointY;
+    //3. »≠∏È ≈∏∞Ÿ x,y ¡¬«• 
+    public EQuadrants quadrants;
 
     //4. ≈∏∞Ÿ¿ª ∏¬√Ë¿ª Ω√ « ø‰«— µ•¿Ã≈Õ
 
@@ -43,24 +42,14 @@ public class HitData
     public double distance;
 
     //4-3. ≈∏∞Ÿ ∏Ì¡ﬂ ¿ßƒ° 
-    public double targetVecX;
-    public double targetVecY;
-    public double targetVecZ;
+    public double[] targetVec;
 
     //4-4. Hit Type
     public HitType hitType = HitType.NONE;
 
-    void SetMousePoint(Vector2 vec)
-    {
-        mousePointX = ConvertDoudle(vec.x);
-        mousePointY = ConvertDoudle(vec.y);
-    }
-
     void SetTargetVec(Vector3 vec)
     {
-        targetVecX = ConvertDoudle(vec.x);
-        targetVecY = ConvertDoudle(vec.y);
-        targetVecZ = ConvertDoudle(vec.z);
+        targetVec = new double[3] { ConvertDoudle(vec.x), ConvertDoudle(vec.y), ConvertDoudle(vec.z) };
     }
 
     double ConvertDoudle(float num)
@@ -68,16 +57,15 @@ public class HitData
        return Math.Round(num, 2);
     }
     //exist Target
-    public HitData(HitType hitType, Vector2 vec, Vector3 vector3,  float distance , float clickTime = 0,  float reactionSpeed = 0)
+    public HitData(HitType hitType, EQuadrants quadrants, Vector3 vector3,  float distance , float clickTime = 0,  float reactionSpeed = 0)
     {
         this.clickTime = ConvertDoudle(clickTime);
         this.isHit = true;
         this.distance = ConvertDoudle(distance);
         this.reactionSpeed = ConvertDoudle(reactionSpeed);
         this.hitType = hitType;
+        this.quadrants = quadrants;
 
-        if (vec != null)
-            SetMousePoint(vec);
         if (vector3 != null)
             SetTargetVec(vector3);
 
@@ -87,17 +75,15 @@ public class HitData
         ShowLog.reactionSpeed = reactionSpeed;
         ShowLog.hitType = hitType;
         ShowLog.distance = distance;
+        ShowLog.quadrants = quadrants;
 #endif
 
     }
     //null Target
-    public HitData(float clickTime, Vector2 vec )
+    public HitData(float clickTime)
     {
         this.clickTime = ConvertDoudle(clickTime);
         this.isHit = false;
-
-        if (vec != null)
-            SetMousePoint(vec);
 
 #if UNITY_EDITOR || Develop
         ShowLog.isHit = false;

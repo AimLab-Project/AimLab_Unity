@@ -11,7 +11,7 @@ public class ShowLog : MonoBehaviour
     public static bool isHit;
 
     //3. È­¸é x,y ÁÂÇ¥ 
-    public static Vector2 mousePoint;
+    public static EQuadrants quadrants;
 
     //4. Å¸°ÙÀ» ¸ÂÃèÀ» ½Ã ÇÊ¿äÇÑ µ¥ÀÌÅÍ
 
@@ -35,7 +35,7 @@ public class ShowLog : MonoBehaviour
 
         GUI.Label(new Rect(5, 0, Screen.width, 20), "Å¬¸¯ ½Ã°£" + clickTime.ToString("#.##"), style);
         GUI.Label(new Rect(5, 30, Screen.width, 20), "¸ÂÃã À¯¹« " + isHit, style);
-        GUI.Label(new Rect(5, 60, Screen.width, 20), "È­¸é x,y ÁÂÇ¥ ( " + mousePoint.x + "," + mousePoint.y+")", style);
+        GUI.Label(new Rect(5, 60, Screen.width, 20), "Å¸°Ù È­¸é ÁÂÇ¥ "+ quadrants, style);
         
         if (isHit)
         {

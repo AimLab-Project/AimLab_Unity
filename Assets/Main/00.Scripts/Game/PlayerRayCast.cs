@@ -76,15 +76,14 @@ public class PlayerRayCast : MonoBehaviour
                 CreateHitEffect(hitInfo);
                 temp.SaveHitInfo(hitObjInfo);
                 float distance = Vector3.Distance(this.gameObject.transform.parent.position, parent.localPosition);
-
-                HitData hitdata = new HitData(hitType, new Vector2(0,0),hitInfo.transform.position,distance,GameManager.Instance.GetCurTime(), hitObjInfo.CheckTime());
-
+                HitData hitdata = new HitData(hitType, hitObjInfo.GetScreenPos() , hitInfo.transform.position,distance,GameManager.Instance.GetCurTime(), hitObjInfo.CheckTime());
                 GameManager.Instance.SethitData(hitdata);
             }
             else
             {
                 Debug.Log("hit!" + hitInfo.transform.gameObject.name);
-                HitData hitdata = new HitData(GameManager.Instance.GetCurTime(), new Vector2(0, 0));
+                HitData hitdata = new HitData(GameManager.Instance.GetCurTime());
+                GameManager.Instance.SethitData(hitdata);
             }
          
             Debug.DrawLine(transform.position, hitInfo.point, Color.red);
@@ -92,6 +91,8 @@ public class PlayerRayCast : MonoBehaviour
         else
         {
             ShowLog.isHit = false;
+            HitData hitdata = new HitData(GameManager.Instance.GetCurTime());
+            GameManager.Instance.SethitData(hitdata);
         }
 
         //test mousePos 

@@ -17,4 +17,6 @@ public interface IFPSObject
     public void SetBulletHole(GameObject gameObject);
 
     public HitType GetHitType(GameObject gameObject);
+
+    public EQuadrants GetScreenPos();
 }

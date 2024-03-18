@@ -7,6 +7,8 @@ public class FPSObject : MonoBehaviour, IFPSObject
 {
     GameObject bulletHole;
 
+    EQuadrants type;
+
     float time;
     bool isStop = true ;
 
@@ -17,7 +19,7 @@ public class FPSObject : MonoBehaviour, IFPSObject
         //this.gameObject.transform.eulerAngles = new Vector3(0,180,0);
         this.gameObject.transform.LookAt(GameManager.Instance.GetPlayerPos());
         transform.Rotate(Vector3.up, 180.0f);
-   
+        SetScreenPos();
         StartCoroutine(CoCheckTime());
     }
 
@@ -76,5 +78,49 @@ public class FPSObject : MonoBehaviour, IFPSObject
             return childTemp.GetHitType();
         else
             return HitType.NONE;
+    }
+    public EQuadrants GetScreenPos()
+    {
+        return type;
+    }
+
+    public void SetScreenPos()
+    {
+        // 월드 좌표를 스크린 좌표로 변환
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+
+
+        // 스크린 가로 중심점의 x 좌표
+        float screenWidth = Screen.width;
+        float screenCenterX = screenWidth / 2f;
+
+        // 스크린 세로 중심점의 y 좌표
+        float screenHeight = Screen.height;
+        float screenCenterY = screenHeight / 2f;
+
+        // 오른쪽 위에 위치하는 경우
+        if (screenPos.x > screenCenterX && screenPos.y > screenCenterY)
+        {
+            Debug.Log("오른쪽 위에 있습니다.");
+            type = EQuadrants.TOPRIGHT;
+        }
+        // 왼쪽 위에 위치하는 경우
+        else if (screenPos.x <= screenCenterX && screenPos.y > screenCenterY)
+        {
+            Debug.Log("왼쪽 위에 있습니다.");
+            type = EQuadrants.TOPRIGHT;
+        }
+        // 왼쪽 아래에 위치하는 경우
+        else if (screenPos.x <= screenCenterX && screenPos.y <= screenCenterY)
+        {
+            Debug.Log("왼쪽 아래에 있습니다.");
+            type = EQuadrants.BOTTOMLEFT;
+        }
+        // 오른쪽 아래에 위치하는 경우
+        else if (screenPos.x > screenCenterX && screenPos.y <= screenCenterY)
+        {
+            Debug.Log("오른쪽 아래에 있습니다.");
+            type = EQuadrants.BOTTOMRIGHT;
+        }
     }
 }
