@@ -77,13 +77,13 @@ public class PlayerRayCast : MonoBehaviour
                 temp.SaveHitInfo(hitObjInfo);
                 float distance = Vector3.Distance(this.gameObject.transform.parent.position, parent.localPosition);
                 HitData hitdata = new HitData(hitType, hitObjInfo.GetScreenPos() , hitInfo.transform.position,distance,GameManager.Instance.GetCurTime(), hitObjInfo.CheckTime());
-                GameManager.Instance.SethitData(hitdata);
+                GameManager.Instance.gameDataManager.SetHitData(hitdata);
             }
             else
             {
                 Debug.Log("hit!" + hitInfo.transform.gameObject.name);
                 HitData hitdata = new HitData(GameManager.Instance.GetCurTime());
-                GameManager.Instance.SethitData(hitdata);
+                GameManager.Instance.gameDataManager.SetHitData(hitdata);
             }
          
             Debug.DrawLine(transform.position, hitInfo.point, Color.red);
@@ -92,17 +92,9 @@ public class PlayerRayCast : MonoBehaviour
         {
             ShowLog.isHit = false;
             HitData hitdata = new HitData(GameManager.Instance.GetCurTime());
-            GameManager.Instance.SethitData(hitdata);
+            GameManager.Instance.gameDataManager.SetHitData(hitdata);
         }
 
-        //test mousePos 
-        Vector3 point = camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
-                  Input.mousePosition.y, -Camera.main.transform.position.z));
-
-        Vector3 point2 = camera.WorldToScreenPoint(hitInfo.point);
-
-        Debug.Log("point" + point);
-        Debug.Log("point2" + point2);
     }
 
     GameObject CreateBulletHole(RaycastHit hitInfo)

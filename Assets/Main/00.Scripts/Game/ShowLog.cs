@@ -26,7 +26,7 @@ public class ShowLog : MonoBehaviour
 
     //5. 타겟 못 맞췄을 시 데이터 
 
-
+    
     private void OnGUI()
     {
         GUIStyle style = new GUIStyle();
@@ -44,6 +44,14 @@ public class ShowLog : MonoBehaviour
             GUI.Label(new Rect(5, 150, Screen.width, 20), "벡터 거리  " + distance, style);
             GUI.Label(new Rect(5, 180, Screen.width, 20), "타겟 명중 위치   ( " + targetVec.x.ToString("#.##") + "," + targetVec.y.ToString("#.##") + ","+ targetVec.z.ToString("#.##") + ")", style);
             GUI.Label(new Rect(5, 210, Screen.width, 20), "Hit Type : " + hitType, style);
+        }
+
+        if(GUI.Button(new Rect(5,250,300,20),"HitData json 변환")){
+            GameManager.Instance.gameDataManager.GetHitdataToJson();
+        }
+        if (GUI.Button(new Rect(305, 250, 300, 20), "GameResult json 변환"))
+        {
+            GameManager.Instance.gameDataManager.GetResultdataToJson();
         }
     }
 }

@@ -20,7 +20,22 @@ public class GameManager : Singleton<GameManager>
 
     ShowLog showLog;
 
-    GameDataManager gameDataManager;
+    public GameDataManager gameDataManager
+    {
+        get
+        {
+            if(gameDataManager == null)
+            {
+               gameDataManager = GetComponent<GameDataManager>();
+            }
+
+            return gameDataManager;
+        }
+        private set
+        {
+            gameDataManager = value;
+        }
+    }
 
 
     public void SetGame(IFPSGame game)
@@ -39,7 +54,6 @@ public class GameManager : Singleton<GameManager>
     protected override void InternalAwake()
     {
         DontDestroyOnLoad(this.gameObject);
-        gameDataManager = GetComponent<GameDataManager>();
     }
 
     private void Update()
@@ -145,20 +159,6 @@ public class GameManager : Singleton<GameManager>
     public float GetCurTime()
     {
         return curGameTime;
-    }
-
-    public void SethitData(HitData hitData)
-    {
-        gameDataManager.gameData.hitDatas.Add(hitData);
-    }
-
-    public HitData GetHitData(int index)
-    {
-        if(index < gameDataManager.gameData.hitDatas.Count)
-        {
-            return gameDataManager.gameData.hitDatas[index];
-        }
-        return null;
     }
 
 }

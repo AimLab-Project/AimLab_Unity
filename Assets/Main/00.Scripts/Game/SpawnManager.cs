@@ -1,16 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using Debug = Project.Utils.Debug;
 public class SpawnManager : MonoBehaviour
 {
     public GameObject[] tempObjs;
-    Transform centerPos;
 
-    [Header("RandomRange")]
-    public int[] rangeX;
-    public float rangeY;
-    public int[] rangeZ;
+    public Transform center; // 부채꼴의 중심
+
+    [SerializeField]
+    [Range(0.0f,100.0f)]
+    float radius = 5f; // 부채꼴의 반지름
+
+    [SerializeField]
+    [Range(0f,360f)]
+    float angle = 90f; // 부채꼴의 각도 (도 단위)
+
 
     GameObject spawnMother;
 
@@ -18,7 +24,7 @@ public class SpawnManager : MonoBehaviour
 
     void Init()
     {
-        centerPos = this.transform;
+        center = this.transform;
 
         if (!spawnMother)
         {
@@ -54,16 +60,36 @@ public class SpawnManager : MonoBehaviour
             Debug.LogError("temp Obj is Null!");
         }
 
-        float posX = Random.Range((centerPos.position.x - rangeX[0]), (centerPos.position.x + rangeX[1]));
-        float posY = Random.Range(3f , rangeY);
-        float posZ = Random.Range((centerPos.position.z - rangeZ[0]), (centerPos.position.z + rangeZ[1]));
+        // float posX = Random.Range((centerPos.position.x - rangeX[0]), (centerPos.position.x + rangeX[1]));
+        // float posY = Random.Range(3f , rangeY);
+        //  float posZ = Random.Range((centerPos.position.z - rangeZ[0]), (centerPos.position.z + rangeZ[1]));
 
-        Vector3 spawnPos = new Vector3(posX, posY, posZ);
-        GameObject temp = Instantiate(tempObjs[spawnNum], spawnPos, Quaternion.identity, spawnMother.transform);
+        //   Vector3 spawnPos = new Vector3(posX, posY, posZ);
+       GameObject temp = Instantiate(tempObjs[spawnNum], GenerateRandomPositionInFanShape(), Quaternion.identity, spawnMother.transform);
 
-        return temp;
+       return temp;
     }
 
+    Vector3 GenerateRandomPositionInFanShape()
+    {
+        // 부채꼴의 중심 위치
+        Vector3 center = this.center.position;
+
+        // 부채꼴의 시작 각도와 끝 각도
+        float startAngle = -angle / 2f;
+        float endAngle = angle / 2f;
+
+        // 랜덤한 각도를 생성
+        float randomAngle = Random.Range(startAngle, endAngle);
+
+        // 랜덤한 거리를 생성
+        float randomRadius = Random.Range(0f, radius);
+
+        // 랜덤한 위치 계산
+        Vector3 randomPosition = center + Quaternion.Euler(0, randomAngle, 0) * Vector3.forward * randomRadius;
+
+        return randomPosition;
+    }
 
     public void DestroySpawnMotherObj()
     {
@@ -92,15 +118,27 @@ public class SpawnManager : MonoBehaviour
         doSpawn = true;
     }
 
-    
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawRay(this.transform.position, this.transform.localRotation * Vector3.right * rangeX[1]);
-        Gizmos.DrawRay(this.transform.position, this.transform.localRotation * Vector3.left * rangeX[0]);
-        Gizmos.DrawRay(this.transform.position, this.transform.localRotation * Vector3.forward * rangeZ[1]);
 
+
+    void OnDrawGizmos()
+    {
+        Handles.color = Color.yellow;
+
+        // 부채꼴의 중심 위치
+        Vector3 center = this.center.position;
+
+        // 부채꼴의 시작 각도와 끝 각도
+        float startAngle = -angle / 2f;
+        float endAngle = angle / 2f;
+
+        // 부채꼴의 반지름
+
+        Handles.DrawWireArc(center, Vector3.up, Quaternion.Euler(0, startAngle, 0) * Vector3.forward, angle, radius);
+
+        Vector3 startPos = center + Quaternion.Euler(0, startAngle, 0) * Vector3.forward * radius;
+        Vector3 endPos = center + Quaternion.Euler(0, endAngle, 0) * Vector3.forward * radius;
+        Handles.DrawLine(center, startPos);
+        Handles.DrawLine(center, endPos);
     }
 
-    
 }
