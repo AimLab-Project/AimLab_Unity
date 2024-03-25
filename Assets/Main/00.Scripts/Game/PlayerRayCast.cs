@@ -62,9 +62,6 @@ public class PlayerRayCast : MonoBehaviour
                 hitObjInfo.SetBulletHole(CreateBulletHole(hitInfo));
                 CreateHitEffect(hitInfo);
                 temp.SaveHitInfo(hitObjInfo);
-
-                // ShowLog
-
             }
             else if (hitInfo.transform.gameObject.tag == "ChildObject")
             {

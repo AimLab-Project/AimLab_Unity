@@ -45,6 +45,7 @@ public class ShowLog : MonoBehaviour
             GUI.Label(new Rect(5, 180, Screen.width, 20), "타겟 명중 위치   ( " + targetVec.x.ToString("#.##") + "," + targetVec.y.ToString("#.##") + ","+ targetVec.z.ToString("#.##") + ")", style);
             GUI.Label(new Rect(5, 210, Screen.width, 20), "Hit Type : " + hitType, style);
         }
+        /**
 
         if(GUI.Button(new Rect(5,250,300,20),"HitData json 변환")){
             GameManager.Instance.gameDataManager.GetHitdataToJson();
@@ -53,6 +54,7 @@ public class ShowLog : MonoBehaviour
         {
             GameManager.Instance.gameDataManager.GetResultdataToJson();
         }
+        **/
     }
 }
  

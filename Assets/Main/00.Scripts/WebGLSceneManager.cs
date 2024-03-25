@@ -31,6 +31,7 @@ public class WebGLSceneManager : Singleton<WebGLSceneManager>
         op.allowSceneActivation = false;
         m_ProgressBar = FindObjectOfType<Slider>();
         float timer = 0.0f;
+        //씬 로드 
         while (!op.isDone)
         {
             await UniTask.Yield();
@@ -54,6 +55,8 @@ public class WebGLSceneManager : Singleton<WebGLSceneManager>
             }
         }
         SceneManager.LoadScene(m_NextScene);
+
+        //[ToDo] : asset 생성 로드 추가 
     }
 
     private async UniTask LoadSceneAsyncCallBack(Action doComplete)

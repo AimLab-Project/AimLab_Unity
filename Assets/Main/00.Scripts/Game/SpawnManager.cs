@@ -88,6 +88,8 @@ public class SpawnManager : MonoBehaviour
         // 랜덤한 위치 계산
         Vector3 randomPosition = center + Quaternion.Euler(0, randomAngle, 0) * Vector3.forward * randomRadius;
 
+        //[TODO]: 가중치 랜덤으로 화면 위치 확인 후 해당 함수 사용
+
         return randomPosition;
     }
 

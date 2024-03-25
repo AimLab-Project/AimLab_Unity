@@ -12,6 +12,9 @@ public class GameDataManager : MonoBehaviour
     [SerializeField]
     List<HitData> hitDatas;
 
+    [SerializeField]
+    int Score;
+
     private void Start()
     {
         hitDatas = new List<HitData>();
