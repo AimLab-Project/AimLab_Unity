@@ -20,20 +20,22 @@ public class GameManager : Singleton<GameManager>
 
     ShowLog showLog;
 
+
+    private GameDataManager _gameDataManager;
     public GameDataManager gameDataManager
     {
         get
         {
-            if(gameDataManager == null)
+            if(_gameDataManager == null)
             {
-               gameDataManager = GetComponent<GameDataManager>();
+                _gameDataManager = GetComponent<GameDataManager>();
             }
 
-            return gameDataManager;
+            return _gameDataManager;
         }
         private set
         {
-            gameDataManager = value;
+            _gameDataManager = value;
         }
     }
 
