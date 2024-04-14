@@ -20,6 +20,7 @@ public class GameManager : Singleton<GameManager>
 
     ShowLog showLog;
 
+    int score;
 
     private GameDataManager _gameDataManager;
     public GameDataManager gameDataManager
@@ -84,6 +85,7 @@ public class GameManager : Singleton<GameManager>
     private void InitGame()
     {
         //find IFPSGame Interface
+        score = 0;
         GameObject scriptManager = GameObject.Find("ScriptManager");
         Component[] components = scriptManager.GetComponents<Component>();
 
@@ -110,15 +112,13 @@ public class GameManager : Singleton<GameManager>
 
     private void StartGame()
     {
-        if (curGame != null && gameRoutine == null)
-        { 
-            curGame.StartGame();
-            gameRoutine = StartCoroutine(CoGameCountDown());
-        }
-        else
+        if (curGame == null && gameRoutine == null)
         {
             InitGame();
         }
+
+        curGame.StartGame();
+        gameRoutine = StartCoroutine(CoGameCountDown());
     }
 
     private void StopGame()
@@ -161,6 +161,63 @@ public class GameManager : Singleton<GameManager>
     public float GetCurTime()
     {
         return curGameTime;
+    }
+
+    public int GetScore()
+    {
+        return score;
+    }
+
+    public void SetScore(HitType type)
+    {
+        switch (type)
+        {
+            case HitType.NONE:
+                score += 0;
+                break;
+            case HitType.HEAD:
+                score += 1000;
+                break;
+            case HitType.BODY:
+                score += 500;
+                break;
+            case HitType.FOOT:
+                score += 100;
+                break;
+            case HitType.ZERO:
+                score += 0;
+                break;
+            case HitType.ONE:
+                score += 100;
+                break;
+            case HitType.TWO:
+                score += 200;
+                break;
+            case HitType.THREE:
+                score += 300;
+                break;
+            case HitType.FOUR:
+                score += 400;
+                break;
+            case HitType.FIVE:
+                score += 500;
+                break;
+            case HitType.SIX:
+                score += 600;
+                break;
+            case HitType.SEVEN:
+                score += 700;
+                break;
+            case HitType.EIGHT:
+                score += 800;
+                break;
+            case HitType.NINE:
+                score += 900;
+                break;
+            case HitType.TEN:
+                score += 1000;
+                break;
+        }
     }
 
 }

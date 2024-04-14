@@ -26,12 +26,15 @@ public class ShowLog : MonoBehaviour
 
     //5. 타겟 못 맞췄을 시 데이터 
 
-    
+#if UNITY_EDITOR
+
     private void OnGUI()
     {
         GUIStyle style = new GUIStyle();
         style.fontSize = 27;
         style.normal.textColor = Color.green;
+        GUI.Label(new Rect(500,0, Screen.width, 20), "----- [Score] -----", style);
+        GUI.Label(new Rect(500, 30, Screen.width, 20), "" + GameManager.Instance.GetScore(), style);
 
         GUI.Label(new Rect(5, 0, Screen.width, 20), "클릭 시간" + clickTime.ToString("#.##"), style);
         GUI.Label(new Rect(5, 30, Screen.width, 20), "맞춤 유무 " + isHit, style);
@@ -56,6 +59,9 @@ public class ShowLog : MonoBehaviour
         }
         **/
     }
+
+#endif
+
 }
  
 

@@ -18,6 +18,8 @@ public enum HitType
     TEN = 210
 }
 
+//[Todo] : 사용자의 마우스가 오브젝트를 맞추지 않을 때 화면에 보이는 오브젝트 위치가 어디인지 구하는 스크립트 작성 할 것. 
+//[Todo] : 점수 시스템 추가 
 public class PlayerRayCast : MonoBehaviour
 {
     [SerializeField]
@@ -56,6 +58,7 @@ public class PlayerRayCast : MonoBehaviour
 
         if (Physics.Raycast(ray, out hitInfo, 10000))
         {
+            HitType hitType = HitType.NONE;
             if (hitInfo.transform.gameObject.tag == "Object")
             {
                 IFPSObject hitObjInfo = hitInfo.transform.gameObject.GetComponent<IFPSObject>();
@@ -66,10 +69,10 @@ public class PlayerRayCast : MonoBehaviour
             else if (hitInfo.transform.gameObject.tag == "ChildObject")
             {
                 Transform parent = hitInfo.transform.gameObject.transform.parent;
-                IFPSObject hitObjInfo = parent.GetComponent<IFPSObject>();
+                IFPSObject hitObjInfo  = parent.GetComponent<IFPSObject>();
 
                 hitObjInfo.SetBulletHole(CreateBulletHole(hitInfo));
-                HitType hitType =  hitObjInfo.GetHitType(hitInfo.transform.gameObject);
+                hitType =  hitObjInfo.GetHitType(hitInfo.transform.gameObject);
                 CreateHitEffect(hitInfo);
                 temp.SaveHitInfo(hitObjInfo);
                 float distance = Vector3.Distance(this.gameObject.transform.parent.position, parent.localPosition);
@@ -82,8 +85,10 @@ public class PlayerRayCast : MonoBehaviour
                 HitData hitdata = new HitData(GameManager.Instance.GetCurTime());
                 GameManager.Instance.gameDataManager.SetHitData(hitdata);
             }
-         
+
+            GameManager.Instance.SetScore(hitType);
             Debug.DrawLine(transform.position, hitInfo.point, Color.red);
+
         }
         else
         {
