@@ -82,8 +82,8 @@ public class PlayerRayCast : MonoBehaviour
             else
             {
                 Debug.Log("hit!" + hitInfo.transform.gameObject.name);
-                HitData hitdata = new HitData(GameManager.Instance.GetCurTime());
-                GameManager.Instance.gameDataManager.SetHitData(hitdata);
+                //HitData hitdata = new HitData(GameManager.Instance.GetCurTime());
+                //GameManager.Instance.gameDataManager.SetHitData(hitdata);
             }
 
             GameManager.Instance.SetScore(hitType);
@@ -93,7 +93,15 @@ public class PlayerRayCast : MonoBehaviour
         else
         {
             ShowLog.isHit = false;
-            HitData hitdata = new HitData(GameManager.Instance.GetCurTime());
+            EQuadrants type = EQuadrants.NONE;
+            FPSObject worldObj = FindObjectOfType<FPSObject>(); 
+            if (worldObj)
+            {
+                type = worldObj.GetScreenPos();
+
+            }
+
+            HitData hitdata = new HitData(GameManager.Instance.GetCurTime(), type);
             GameManager.Instance.gameDataManager.SetHitData(hitdata);
         }
 
@@ -118,5 +126,7 @@ public class PlayerRayCast : MonoBehaviour
         //To Do (1002) : Add Object Pool
         GameObject obj = Instantiate(hitEffect, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
     }
+
+
 }
 

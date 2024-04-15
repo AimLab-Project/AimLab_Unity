@@ -13,7 +13,10 @@ public class GameDataManager : MonoBehaviour
     List<HitData> hitDatas;
 
     [SerializeField]
-    int Score;
+    public int Score
+    {
+        get { return GameManager.Instance.GetScore(); }
+    }
 
     private void Start()
     {
@@ -46,6 +49,12 @@ public class GameDataManager : MonoBehaviour
             SavePlayerDataToJson<HitData>(hitDatas[last]);
         }
     }
+
+    public HitData GetCurrentData()
+    {
+        return hitDatas[hitDatas.Count - 1];
+    }
+
     public void GetResultdataToJson()
     {
         if (gameData == null)

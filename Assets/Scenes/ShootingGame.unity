@@ -252,8 +252,8 @@ MonoBehaviour:
   tempObjs:
   - {fileID: 6453150056706337027, guid: 6d3db9e4067c76b42ad91ee69d0b9bb6, type: 3}
   center: {fileID: 160426176}
-  radius: 20
-  angle: 90
+  radius: 22.5
+  angle: 52
 --- !u!114 &160426178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -699,7 +699,6 @@ MonoBehaviour:
   gameData:
     score: 0
   hitDatas: []
-  Score: 0
 --- !u!114 &1370374136
 MonoBehaviour:
   m_ObjectHideFlags: 0

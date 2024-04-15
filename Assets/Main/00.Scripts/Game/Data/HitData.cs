@@ -62,15 +62,17 @@ public class HitData
 
     }
     //null Target
-    public HitData(float clickTime)
+    public HitData(float clickTime, EQuadrants eQuadrants)
     {
         this.clickTime = ConvertDoudle(clickTime);
+        this.quadrants = eQuadrants;
         this.isHit = false;
 
 #if UNITY_EDITOR || Develop
         ShowLog.isHit = false;
         ShowLog.hitType = this.hitType;
         ShowLog.clickTime = clickTime;
+        ShowLog.quadrants = quadrants;
 #endif
 
     }
